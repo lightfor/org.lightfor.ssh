@@ -2,6 +2,8 @@ package org.lightfor.ssh;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.ProxyHTTP;
+import com.jcraft.jsch.ProxySOCKS5;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UIKeyboardInteractive;
 import com.jcraft.jsch.UserInfo;
@@ -32,6 +34,8 @@ public class Shell {
             host = host.substring(host.indexOf('@') + 1);
 
             Session session = jsch.getSession(user, host, 22);
+
+            session.setProxy(new ProxyHTTP("127.0.0.1", 1080));
 
             String passwd = JOptionPane.showInputDialog("Enter password");
             session.setPassword(passwd);
